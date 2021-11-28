@@ -1,0 +1,632 @@
+<!DOCTYPE html>  
+<html>  
+    <head>
+		<meta charset="UTF-8"> 
+		<title>Samaritan QMS</title>
+		<link rel="icon" href="images/favicon.png">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+		<link rel="stylesheet" type="text/css" href="/css/loader.css">
+			
+		<script>
+			if((navigator.userAgent.indexOf("MSIE") != -1 ) || (!!document.documentMode == true )) //IF IE > 10
+				{
+				  alert('QMS Website does not work on Internet Explorer.  Please consider using Google Chrome!'); 
+				}
+		</script>
+	</head>
+	
+	<body>
+		<div class="loader-wrapper">
+			<div class="loader">
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>			
+			</div>
+		</div>
+		
+		
+		<h1> Quality Management System </h1>
+			<div id="timeline-wrap">
+			  <div id="timeline"></div>
+			  <div id="1" class="marker one">1</div>
+			  <div id="2" class="marker two">2</div>
+			  <div id="3" class="marker three">3</div>
+			  <div id="4" class="marker four">4</div>
+			  <div id="5" class="marker five">5</div>			  
+			  <div id="6" class="marker six">6</div>	
+			  <div id="7" class="marker seven"><img id="7" class = "timelineImage" src='images/whiteReport.png'></img></div>	
+			  
+			  <div id="0" class="marker zero">?</div>					  
+			</div>		
+				
+		<div id="workingWith" class="header">
+			<table>
+				<tr>
+					<td rowspan="3">Now Showing<br>Data For:</td>
+					<th>Department Name:</th>
+					<td id="headerDepartment"></td>
+					<td rowspan="3"></td>
+					<th>SLT Measure Owner:</th>
+					<td id="headerSLT"></td>
+				</tr>
+				<tr>
+					<th>Measure Name:</th>
+					<td id="headerMeasure"></td>
+					
+					<th>Scorecard Name:</th>
+					<td id="headerScorecard"></td>
+				</tr>
+				<tr style="display:none;">
+					<th>Report ID</th>
+					<td id="headerReportID"></td>
+					<th>UserId</th>
+					<td id="headerUserID"></td>
+				</tr>
+			</table>
+		</div>
+		<div class="fullBox">
+			<div class="leftBox">
+					<form id="form1" class="form1 verticalHeader">
+						<p> Create a New Measure </p>
+						<table>
+							<tr><th>#1 Find an Existing Department Name:<br><br><span style="font-size:.9em;">(If the department you need does not exist, just enter the New Department.<br>Then move to #2)</span></th>
+								<td><input type="text" list="newDepartment" id="txtNewDepartment" name="newDepartment" autocomplete="on" class="largeArrow" ><datalist id="newDepartment"></td>								
+								
+							</tr>
+							<tr class="blank_row2"></tr>
+							<tr>
+							<th>#2 Enter QMS Measure Name:</th>
+								<td><input type="text" id="txtNewMeasure" name="newMeasure" class="noArrow"></td>
+							</tr>
+							<tr class="blank_row"></tr>
+							<tr>
+							<th> Possible Matches Found Among <u>All</u> Departments ...</th>
+								<td id='newMeasureCheck'></td>
+							</tr>
+						</table>
+					<div id="createNewMeasureButton"></div>
+					<div id="stickyNotes" class="stickyNotes">
+						<ul>
+							  <li>
+								<a href="#">
+								  <h2>Tip #1</h2>
+								  <p><br>Check to make sure the department does't already exist</p>
+								</a>
+							  </li>
+							  <li>
+								<a href="#">
+								  <h2>Tip #2</h2>
+								  <p><br>Is there a measure similar created under a differnet department?</p>
+								</a>
+							  </li>
+							  <li>
+								<a href="#">
+								  <h2>Tip #3</h2>
+								  <p><br>Departments & Measure names <i>CAN</i> be renamed but it takes some effort.  Make sure you are happy before you commit</p>
+								</a>
+							  </li>							  
+							</ul>
+					</div>
+					</form>
+													
+					<form id="form2" class="form2">
+						<p><span style="font-size: 24px; text-decoration: underline; color: #e7bb73;">Select One</span> from the drop downs to find a QMS Measure</p>						
+						<table>
+							<th>Department</th><th>Scorecard</th><th>SLT Measure Owner</th><th>Data Entered By</th>
+							<tr>
+							<td>
+								<select id="selDept"></select>
+								</td>
+							<td>
+								<select id="selScorecard"></select>
+								</td>
+							<td>
+								<select id="selSLT"></select>
+								</td>
+							<td>
+								<select id="selDataEnteredBy"></select>
+								</td>
+							</tr>
+						</table>
+					</form>
+					
+					<form id="form3", class="form3 verticalHeader">
+						<p>Labels & Criteria ...  </p>
+						<table>
+							<tr><th>Measure Type:</th>
+								<td style="padding-right:.47%;"><select id="selMeasureType"></select></td>
+							
+							<td rowspan="3" class="blank_column">
+							
+							<th>Scorecard Label:</th>
+								<td><input type="text" list="scorecardLabel" id="txtScorecardLabel" name="scorecardLabel" autocomplete="on"><datalist id="scorecardLabel"></td>
+							</tr>
+							
+							
+							<tr><th>SLT Owner:</th>
+								<td><input type="text" list="SLT" id="txtSLT" name="SLT" autocomplete="on"><datalist id="SLT"></td>
+							<th>Data Entered By:</th>
+								<td><input type="text" list="enteredBy" id="txtEnteredBy" name="enteredBy" autocomplete="on"><datalist id="enteredBy"></td>
+							</tr>
+							
+							<tr><th>Data Validated By:</th>
+								<td><input type="text" list="validatedBy" id="txtValidatedBy" name="validatedBy" autocomplete="on"><datalist id="validatedBy"></td>
+							<th>Quality Liaison:</th>
+								<td><input type="text" list="qualityLiaison" id="txtQualityLiaison" name="qualityLiaison" autocomplete="on"><datalist id="qualityLiaison"></td>
+							</tr>
+							
+							<!--<tr><th>Committee Reports To:</th>
+								<td><input type="text" list="reportsTo" id="txtReportsTo" name="reportsTo" autocomplete="on"><datalist id="reportsTo"></td>
+							</tr>-->
+							<tr class="blank_row"></tr>
+						</table>
+						
+						
+						<table>
+							<tr>
+								<th>Objective / Goal:</th>
+								<td><textarea rows="4" cols="100" id= "objective" name="objective" placeholder="In looking at January 1, 20xx through December 31, 20xx; to achieve ..."></textarea></td>
+							</tr>
+							<tr>
+								<th>Data Collection Methodology:</th>
+								<td><textarea rows="4" cols="100" id="dataCollection" name="dataCollection"></textarea></td>
+							</tr>
+							<tr>
+								<th>Inclusion Criteria:</th>
+								<td><textarea rows="2" cols="100" id="inclusion" name="inclusion"></textarea></td>
+							</tr>
+							<tr>
+								<th>Exclusion Criteria:</th>
+								<td><textarea rows="2" cols="100" id="exclusion" name="exclusion"></textarea></td>
+							</tr>
+							<tr>
+								<th>DMAIC Location:</th>								
+								<td><textarea style="resize: none;" rows="2" cols="100" id="dmaicLocation" name="dmaicLocation"></textarea></td>
+							</tr>
+						</table>
+					</form>
+					
+					<form id="form4" class="form4">
+						<p>Calculation and Graphing Options ...</p>
+						<table>
+							<th></th><th>Labels:</th><th>Calculation Method:</th><th>Graph<br>Option:</th><th>Number<br>Format:</th><th># of<br>Decimals:</th>
+							<tr>
+								<td>Numerator:</td>
+									<td><input type="text" id="numLabel" class="noArrow"></td>
+									<td style="padding-left: 8px;">No Calculation - number manually entered</td>
+									<td><select id="numGraphOptions" class="smallArrow"></td>
+									<td><select id="numNumberFormat" class="smallArrow"></td>
+									<td><select id="numNumberOfDecimals" class="smallArrow" style="padding-left: 40%;"></td>
+							</tr>
+							<tr>
+								<td>Denominator:</td>
+									<td><input type="text" id="denomLabel" class="noArrow"></td>
+									<td style="padding-left: 8px;">No Calculation - number manually entered</td>
+									<td><select id="denomGraphOptions" class="smallArrow"></td>
+									<td><select id="denomNumberFormat" class="smallArrow"></td>
+									<td><select id="denomNumberOfDecimals" class="smallArrow" style="padding-left: 40%;"></td>
+							</tr>
+							<tr>
+								<td>Achievement:</td>
+									<td><input type="text" id="achLabel" class="noArrow"></td>
+									<td><select id="achCalcOptions" class="smallArrow"></td>
+									<td><select id="achGraphOptions" class="smallArrow"></td>
+									<td><select id="achNumberFormat" class="smallArrow"></td>
+									<td><select id="achNumberOfDecimals" class="smallArrow" style="padding-left: 40%;"></td>
+							</tr>
+							<tr>
+								<td>Target:</td>
+									<td><input type="text" id="tgtLabel" class="noArrow"></td>
+									<td style="padding-left: 8px;">No Calculation - number manually entered</td>
+									<td><select id="tgtGraphOptions" class="smallArrow"></td>
+									<td><select id="tgtNumberFormat" class="smallArrow"></td>
+									<td><select id="tgtNumberOfDecimals" class="smallArrow" style="padding-left: 40%;"></td>
+							</tr>
+							<tr>
+								<td>Quarterly Summary:</td>
+									<td><input type="text" id="qtrLabel" class="noArrow"></td>
+									<td><select id="qtrCalcOptions" class="smallArrow"></td>
+									<td><select id="qtrGraphOptions" class="smallArrow"></td>
+									<td><select id="qtrNumberFormat" class="smallArrow"></td>
+									<td><select id="qtrNumberOfDecimals" class="smallArrow" style="padding-left: 40%;"></td>
+							</tr>
+							<tr>
+								<td>Additional Field #1:</td>
+									<td><input type="text" id="addLabel" class="noArrow"></td>
+									<td><select id="addCalcOptions" class="smallArrow"></td>
+									<td><select id="addGraphOptions" class="smallArrow"></td>
+									<td><select id="addNumberFormat" class="smallArrow"></td>
+									<td><select id="addNumberOfDecimals" class="smallArrow" style="padding-left: 40%;"></td>
+							</tr>
+							<tr>
+								<td>Additional Field #2:</td>
+									<td><input type="text" id="secAddLabel" class="noArrow"></td>
+									<td><select id="secAddCalcOptions" class="smallArrow"></td>
+									<td><select id="secAddGraphOptions" class="smallArrow"></td>
+									<td><select id="secAddNumberFormat" class="smallArrow"></td>									
+									<td><select id="secAddNumberOfDecimals" class="smallArrow" style="padding-left: 40%;"></td>
+							</tr>
+
+							
+							<tr class="blank_row"></tr>
+						</table>
+						<table>
+							<tr>
+								<td style="width:80%;">What is the desired direction?  Above or Below Target?</td>
+								<td style="width:20%;"><select id="tgtDesiredDirection"></td>
+							<tr>
+							<tr>
+								<td style="width:80%;">Which number is being compared against the target value?</td>
+								<td style="width:20%;"><select id="kpiMetric"></td>
+							</tr>
+						</table>
+					</form>
+					
+					<form id="form5" class="form5">
+						<p>Monthly Data ...</p>
+						<table>
+							<tr><th>Report Year:</th>
+								<td colspan="3"><input id="dataYear" type="number" placeholder="YYYY" min="2016" max="2022" class="noArrow"/></td> 
+								</tr>
+							<tr class="blank_row"></tr>
+							<th>Metric Label</th><th>Jan</th><th>Feb</th><th>Mar</th><th>Apr</th><th>May</th><th>Jun</th><th>Jul</th><th>Aug</th><th>Sep</th><th>Oct</th><th>Nov</th><th>Dec</th>
+							<tr>
+								<td id="numMetricLabel"></td>
+								<td><input id="num1" type="text" class="noArrow"/></td><td><input id="num2" type="text" class="noArrow"/></td>
+								<td><input id="num3" type="text" class="noArrow"/></td><td><input id="num4" type="text" class="noArrow"/></td>
+								<td><input id="num5" type="text" class="noArrow"/></td><td><input id="num6" type="text" class="noArrow"/></td>
+								<td><input id="num7" type="text" class="noArrow"/></td><td><input id="num8" type="text" class="noArrow"/></td>
+								<td><input id="num9" type="text" class="noArrow"/></td><td><input id="num10" type="text" class="noArrow"/></td>
+								<td><input id="num11" type="text" class="noArrow"/></td><td><input id="num12" type="text" class="noArrow"/></td>
+								</tr>
+							<tr>
+								<td id="denomMetricLabel"></td>
+								<td><input id="denom1" type="text" class="noArrow"/></td><td><input id="denom2" type="text" class="noArrow"/></td>
+								<td><input id="denom3" type="text" class="noArrow"/></td><td><input id="denom4" type="text" class="noArrow"/></td>
+								<td><input id="denom5" type="text" class="noArrow"/></td><td><input id="denom6" type="text" class="noArrow"/></td>
+								<td><input id="denom7" type="text" class="noArrow"/></td><td><input id="denom8" type="text" class="noArrow"/></td>
+								<td><input id="denom9" type="text" class="noArrow"/></td><td><input id="denom10" type="text" class="noArrow"/></td>
+								<td><input id="denom11" type="text" class="noArrow"/></td><td><input id="denom12" type="text" class="noArrow"/></td>
+								</tr>
+							<tr>
+								<td id="achMetricLabel"></td>
+								<td><input id="ach1" type="text" class="noArrow"/></td><td><input id="ach2" type="text" class="noArrow"/></td>
+								<td><input id="ach3" type="text" class="noArrow"/></td><td><input id="ach4" type="text" class="noArrow"/></td>
+								<td><input id="ach5" type="text" class="noArrow"/></td><td><input id="ach6" type="text" class="noArrow"/></td>
+								<td><input id="ach7" type="text" class="noArrow"/></td><td><input id="ach8" type="text" class="noArrow"/></td>
+								<td><input id="ach9" type="text" class="noArrow"/></td><td><input id="ach10" type="text" class="noArrow"/></td>
+								<td><input id="ach11" type="text" class="noArrow"/></td><td><input id="ach12" type="text" class="noArrow"/></td>
+								</tr>							
+							<tr>
+								<td id="tgtMetricLabel"></td>
+								<td><input id="tgt1" type="text" class="noArrow"/></td><td><input id="tgt2" type="text" class="noArrow"/></td>
+								<td><input id="tgt3" type="text" class="noArrow"/></td><td><input id="tgt4" type="text" class="noArrow"/></td>
+								<td><input id="tgt5" type="text" class="noArrow"/></td><td><input id="tgt6" type="text" class="noArrow"/></td>
+								<td><input id="tgt7" type="text" class="noArrow"/></td><td><input id="tgt8" type="text" class="noArrow"/></td>
+								<td><input id="tgt9" type="text" class="noArrow"/></td><td><input id="tgt10" type="text" class="noArrow"/></td>
+								<td><input id="tgt11" type="text" class="noArrow"/></td><td><input id="tgt12" type="text" class="noArrow"/></td>
+								</tr>
+							<tr>
+								<td id="qtrMetricLabel"></td>
+								<td><input id="qtr1" type="text" class="noArrow" style="width:300%;"/></td>
+								<td><input id="qtr2" type="text" class="noArrow" style="display:none"/></td>
+								<td><input id="qtr3" type="text" class="noArrow" style="display:none"/></td>
+								<td><input id="qtr4" type="text" class="noArrow" style="width:300%;"/></td>
+								<td><input id="qtr5" type="text" class="noArrow" style="display:none"/></td>
+								<td><input id="qtr6" type="text" class="noArrow" style="display:none"/></td>
+								<td><input id="qtr7" type="text" class="noArrow" style="width:300%;"/></td>
+								<td><input id="qtr8" type="text" class="noArrow" style="display:none"/></td>
+								<td><input id="qtr9" type="text" class="noArrow" style="display:none"/></td>
+								<td><input id="qtr10" type="text" class="noArrow" style="width:300%;"/></td>
+								<td><input id="qtr11" type="text" class="noArrow" style="display:none"/></td>
+								<td><input id="qtr12" type="text" class="noArrow" style="display:none"/></td>
+								</tr>
+							<tr>							
+								<td id="addMetricLabel"></td>
+								<td><input id="add1" type="text" class="noArrow"/></td><td><input id="add2" type="text" class="noArrow"/></td>
+								<td><input id="add3" type="text" class="noArrow"/></td><td><input id="add4" type="text" class="noArrow"/></td>
+								<td><input id="add5" type="text" class="noArrow"/></td><td><input id="add6" type="text" class="noArrow"/></td>
+								<td><input id="add7" type="text" class="noArrow"/></td><td><input id="add8" type="text" class="noArrow"/></td>
+								<td><input id="add9" type="text" class="noArrow"/></td><td><input id="add10" type="text" class="noArrow"/></td>
+								<td><input id="add11" type="text" class="noArrow"/></td><td><input id="add12" type="text" class="noArrow"/></td>
+								</tr>
+							<tr>
+								<td id="secAddMetricLabel"></td>
+								<td><input id="secAdd1" type="text" class="noArrow"/></td><td><input id="secAdd2" type="text" class="noArrow"/></td>
+								<td><input id="secAdd3" type="text" class="noArrow"/></td><td><input id="secAdd4" type="text" class="noArrow"/></td>
+								<td><input id="secAdd5" type="text" class="noArrow"/></td><td><input id="secAdd6" type="text" class="noArrow"/></td>
+								<td><input id="secAdd7" type="text" class="noArrow"/></td><td><input id="secAdd8" type="text" class="noArrow"/></td>
+								<td><input id="secAdd9" type="text" class="noArrow"/></td><td><input id="secAdd10" type="text" class="noArrow"/></td>
+								<td><input id="secAdd11" type="text" class="noArrow"/></td><td><input id="secAdd12" type="text" class="noArrow"/></td>
+								</tr>							
+						</table>
+												
+					</form>
+					
+					<form id="form6" class="form6">
+						<p>Monthly Analysis</p>
+						<table class="form6-first">
+							<tr><th>Report Year:</th>
+								<td><input id="analysisYear" type="number" placeholder="YYYY" min="2016" max="2022" class="noArrow"/></td> 
+								<td></td>
+								</tr>
+						</table>
+						<table class="form6-second">
+							<tr class="blank_row"></tr>
+							<th></th><th>Analysis of Data</th><th></th><th>Action to Improve Performance</th>
+							<tr>
+								<td>Q1</td><td><textarea rows="5" cols="50" id="analysisQ1"></textarea></td><td></td><td><textarea rows="5" cols="50" id="actionQ1"></textarea></td>								
+							</tr>
+							<tr>
+								<td>Q2</td><td><textarea rows="5" cols="50" id="analysisQ2"></textarea></td><td></td><td><textarea rows="5" cols="50" id="actionQ2"></textarea></td>								
+							</tr>
+							<tr>
+								<td>Q3</td><td><textarea rows="5" cols="50" id="analysisQ3"></textarea></td><td></td><td><textarea rows="5" cols="50" id="actionQ3"></textarea></td>								
+							</tr>
+							<tr>
+								<td>Q4</td><td><textarea rows="5" cols="50" id="analysisQ4"></textarea></td><td></td><td><textarea rows="5" cols="50" id="actionQ4"></textarea></td>								
+							</tr>
+						</table>
+					</form>
+					
+					<form id="form0">
+					  <div class = "faqContainer">
+						<div class = "faqHeader">
+						  <p>Need Help?</p>
+						</div>
+						<div class = "faqLeft">
+						  <img src='images/gears.png' alt='gears' class="faqImages"></img><br><p>Create / Modify a Measure</p>
+						</div>
+						<div class = "faqCenter">
+							<img src='images/data.png' alt='data' class="faqImages"></img><br><p>Enter Monthly Numbers</p>
+						</div>
+						<div class = "faqRight">						
+							<img src='images/chart.png' alt='chart' class="faqImages"></img><br><p>Charts and Reports</p>
+						</div>
+						<div class = "faqContent">
+							<dl id="faqLeft">
+								<dt>How do I create a new measure?</dt>
+								<dt>Select <b>STEP 1</b> and follow the instructions</dt>	
+								<dt>Can I change the name of an existing department or an existing measure?</dt>
+								<dt>Yes - please email Greg Trader and he will take care of it</dt>
+							 </dl>
+							 <dl id="faqCenter">
+								<dt>How do I save my data?</dt>
+								<dt>Whenever a change is made an image of a disk will appear in the upper right part of the screen.  Click the image and read.</dt>
+								<dt>Do I need to fill out the analysis section in <b>STEP 6</b>?</dt>
+								<dt>Yes.</dt>
+							 </dl>
+							 <dl id="faqRight">
+								<dt>Can I export the charts that appear in <b>STEPS 2-6</b>?</dt>
+								<dt>Yes - Hover over the chart and you will see an icon that looks like a camera.  Click this icon and a PNG file will be created.</dt>
+								<dt>I see report but no charts...what gives?</dt>
+								<dt>Some will be established shortly</dt>
+								<dt>My summary chart on <b>STEP 2</b> only has a target (red) line.  Is something missing?</dt>
+								<dt>Yes!  This chart is supposed to show the target compared to the KPI (Key Performance Indicator).  The KPI can be assigned or modified in <b>STEP 4</b> under the <i>"Which number is being compared against the target value?"</i> section</dt>
+							 </dl>
+						</div>
+					  </div>
+
+					</form>
+					
+					<form id="form7">
+					  <div class = "faqContainer">
+						<div class = "faqHeader">
+						  <p style="width: 100%">Charts and Reports</p>
+						</div>
+						<div class = "report one" id="Report1"><!-- keep "R" capitalized! -->
+						  <p>SLT Measure Profile</p>
+						</div>
+						<div class = "report two" id="Report2"><!-- keep "R" capitalized! -->
+						  <p>Are Scorecard Measures Current?</p>							
+						</div>
+						<div class = "report three" id="Report3"><!-- keep "R" capitalized! -->
+						  <p>Who Changed My Data?</p>							
+						</div>
+						<div class = "report four" id="Report4"><!-- keep "R" capitalized! -->
+						  <p>Rolling 12 Snapshot</p>							
+						</div>
+						
+						<div class="reportContent" id="divReport1">															
+							<table id="tableReport1" class="display" style="width:130%">
+								<thead>	
+									<tr>					
+										<th class="headFilter">Scorecard</th> <th class="headFilter">Data Entered By</th>
+										<th class="headFilter">SLT Report Owner</th> <th>Last Updated On</th>	
+										<th class="headFilter">Department Name</th> <th class="headFilter">Measure Name</th>
+										<th class="headFilter">Measure Type</th> <th >Objective</th>									
+										<th>Data Collection Method</th>	<th>Inclusion Criteria</th>
+										<th>Exclusion Criteria</th> <th>Numerator Label</th> <th>Denominator Label</th>
+										<th>KPI Label</th> <th>KPI Calculation</th> <th class="headFilter">Target Desired Direction</th>  <th>Last Year KPI Value</th>  <th>Last Year Target Value</th>
+									</tr>
+									<tr>
+										<th>Scorecard</th> <th>Data Entered By</th>
+										<th>SLT Report Owner</th> <th>  </th>	
+										<th>Department Name</th> <th>Measure Name</th>
+										<th>Measure Type</th> <th>  </th>									
+										<th>  </th>	<th>  </th>
+										<th> </th> <th>  </th> <th>   </th>	
+										<th> </th> <th>  </th> <th>Target Desired Direction</th>	<th>  </th> <th>   </th>	
+									</tr>
+								</thead>
+								
+								<tbody>
+								</tbody>
+							</table> 
+							<br><br>
+						</div> <!-- End of divReport1 -->
+						
+						<div class="reportContent" id="divReport2">															
+							<table id="tableReport2" class="display" style="width:100%">
+								<thead>	
+									<tr>
+										<th class="headFilter">Department Name</th>
+										<th>Measure Name</th><th class="headFilter">Scorecard</th>	
+										<th>Last Updated On</th><th class="headFilter">Quality Liaison</th>
+										<th class="headFilter">Data Entered By</th><th class="headFilter">Measure Validated By</th>									
+										<th class="headFilter">SLT Measure Owner</th><th class="headFilter">QC Status</th>
+										<th>Numerator from Last Month</th><th>Denominator from Last Month</th>
+										<th>Numerator from 2 Months Ago</th><th>Denominator from 2 Months Ago</th>
+										<th>Numerator from 3 Months Ago</th><th>Denominator from 3 Months Ago</th>
+										<th>Numerator from 4 Months Ago</th><th>Denominator from 4 Months Ago</th>
+									</tr>
+									<tr>			
+										<th>Department Name</th>
+										<th>   </th><th>Scorecard</th>	
+										<th>     </th><th>Quality Liaison</th>
+										<th>Data Entered By</th><th>Measure Validated By</th>									
+										<th>SLT Measure Owner</th> <th>QC Status</th>
+										<th>   </th><th>   </th>
+										<th>   </th><th>   </th>
+										<th>   </th><th>   </th>
+										<th>   </th><th>   </th>
+									</tr>
+								</thead>
+								<tbody>
+								</tbody>
+							</table> 
+							<br><br>
+						</div> <!-- End of divReport2 -->
+						
+						<div class="reportContent" id="divReport3">															
+							<table id="tableReport3" class="display" style="width:100%">
+								<thead>	
+									<tr>
+										<th colspan="2">&nbsp </th>
+										<th colspan="4">Who <span class="specialText">SHOULD BE</span> changing my data?</th>
+										<th colspan="1">&nbsp </th>
+										<th colspan="4">Who <span class="specialText">DID</span> change my data?</th>
+									</tr>
+									<tr>
+										<th class="headFilter">Department Name</th>
+										<th class="headFilter">Measure Name</th>
+										<th class="headFilter">SLT Measure Owner</th>
+										<th class="headFilter">Measure Validated By</th>
+										<th class="headFilter">Data Entered By</th>
+										<th class="headFilter">Quality Liaison</th>
+										<th> </th> <!--intentionally left blank -->
+										<th class="headFilter">Metric Values Changed By</th>
+										<th>Metric Values Changed On</th>
+										<th class="headFilter">Measure Labels Changed By</th>
+										<th>Measure Labels Changed On</th>
+										
+										
+									</tr>
+									<tr>			
+										<th>Department Name</th>
+										<th>Measure Name</th>
+										<th>SLT Measure Owner</th>
+										<th>Measure Validated By</th>
+										<th>Data Entered By</th>
+										<th>Quality Liaison</th>
+										<th></th>
+										<th>Metric Values Changed By</th>
+										<th></th>
+										<th>Measure Labels Changed By</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+								</tbody>
+							</table> 
+							<br><br>
+						</div> <!-- End of divReport3 -->
+						
+						<div class="reportContent" id="divReport4">
+							<table id="tableReport4" class="" style="width:60%">
+								<th style="width:33.3%">Department</th><th style="width:33.3%">SLT Measure Owner</th><th style="width:33.3%">Scorecard Label</th>
+								<tr>
+								<td>
+									<select id="rpt_departmentName"></select>
+									</td>
+								<td>
+									<select id="rpt_measureSltOwner"></select>
+									</td>
+								<td>
+									<select id="rpt_scorecardLabel"></select>
+									</td>
+								
+								</tr>
+							</table>
+							<br><br>
+							<table id="tableReport4b" class="" style="width:100%">
+								<thead>									
+								</thead>
+								<tbody>
+								</tbody>
+							</table> <br>
+						
+						</div> <!-- End of divReport4 -->
+					  </div>
+
+					</form>
+			</div>
+			<div id="chart" class="rightBox"> <!--		HOLD FOR  A CHART   -->
+				<div id="chartInfo"></div> <!-- class 'chartInfo' added via JS upon QMS Chart laod -->
+				<div id="chartResize"></div> <!-- class 'chartResize' added via JS upon QMS Chart laod -->
+			</div>			
+			<div class="OptionTable">
+				<p>Please choose from one of the following QMS measures</p>
+				<table id="Output">
+					<thead>						
+						<th style="width: 30%;">Department Name</th>
+						<th style="width: 10%;display:none;">Report ID</th>
+						<th style="width: 40%;">Measure Name</th>
+						<th style="width: 20%;">SLT Measure Owner</th>						
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+			</div>
+			<div id = "saveWrapper">
+				<!--<i id="saveIconA"></i>-->
+				<div id="saveIcon" > </div>   <!--the class 'saveIcon' is added to this id whenever a change is made -->
+				<p class="saveIconText">Save Data</p>
+				</div>		<!-- placeholder.  css dynamically called whenever a change takes place    -->
+			<div id="chartInfoDisplay">
+				<div id = "chartInfoDisplayHeader"></div>
+				<div id = "chartInfoDisplayMain"></div>
+				<div id = "chartInfoDisplayFooter"></div>
+			</div>  <!-- class 'chartInfoDisplay' added via JS upon info icon click -->
+			<div id="saveIconDisplay">
+				<div id = "saveIconDisplayHeader"></div>
+				<div id = "saveIconDisplayMain"></div>
+				<div id = "saveIconButton"></div>
+				<div id = "saveIconDisplayFooter"></div>
+			</div>  <!-- class 'saveIconDisplay' added via JS upon info icon click -->
+	</body>
+	
+	
+<footer>	
+	<link rel="stylesheet" type="text/css" href="/css/style_version=1.css">
+	
+	<!-- External Fonts -->
+		<link href="https://fonts.googleapis.com/css?family=Schoolbell" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Bitter:ital@1&display=swap" rel="stylesheet">		
+	<!-- External Fonts -->
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>		
+	<script src='https://cdn.plot.ly/plotly-latest.min.js'></script> <!-- Load straight from URL.  needed for charts -->	
+	
+	<!--  scripts for dataTables  -->	
+		<script src="http://code.jquery.com/jquery-3.1.0.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.16/b-1.5.1/b-html5-1.5.1/b-print-1.5.1/datatables.min.css"/>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
+		<script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.16/b-1.5.1/b-html5-1.5.1/b-print-1.5.1/datatables.min.js"></script> 	
+	<!--  scripts for dataTables  -->
+	
+	<script src='/JavaScript/js_version=1.10sh.js'></script>		
+	<script src='/JavaScript/jsPHP_version=2sh.js'></script>		
+	<script src='/JavaScript/jsReports_version=4sh.js'></script>		
+		
+	
+	<script>		
+		$(window).on("load", function (){			
+			$(".loader-wrapper").fadeOut("slow");
+		});
+	</script>
+</footer>
+</html> 
